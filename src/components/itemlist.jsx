@@ -16,10 +16,11 @@ const useItems = () => {
         }));
         setItems(listItems); //items is equal to listItems
       });
-    return () => unsubscribe();
+      return unsubscribe();
   }, []);
   return items;
 };
+
 const ItemList = () => {
   const listItem = useItems();
   return (
@@ -30,7 +31,6 @@ const ItemList = () => {
           <td className="tg-ycr8">Type</td>
           <td className="tg-i81m">Qty</td>
           <td className="tg-a02x">Description</td>
-          <td class="tg-6hdc"></td>
         </tr>
       </tbody>
       {listItem.map(item => (
