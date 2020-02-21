@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const UpdateItem = ({ setEditing, currentItem }) => {
+const UpdateItem = ({ setEditing, currentItem, updateItem }) => {
     const [item, setItem] = useState(currentItem);
     /*
   Side effect is that without UseEffect if you start editing one item, 
@@ -24,8 +24,8 @@ const UpdateItem = ({ setEditing, currentItem }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    //When you click the submit button you can see what it being passed.
-    console.log("onSubmit passes the id and items", { item });
+    console.log("onSubmit passes the id and items", item);
+    updateItem({ currentItem }, item);
   };
     return (
         <>
