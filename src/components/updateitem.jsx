@@ -16,6 +16,11 @@ const UpdateItem = ({ setEditing, currentItem }) => {
     //Added console.log to show what the current item is and that it has passed
     console.log("useEffect passes the currentItem: ", currentItem);
   }, [currentItem]);
+  const onChange = e => {
+    const { name, value } = e.target
+    setItem({ ...item, [name]: value })
+  }
+  
 
   const onSubmit = e => {
     e.preventDefault();
@@ -24,17 +29,22 @@ const UpdateItem = ({ setEditing, currentItem }) => {
   };
     return (
         <>
-      <h2>Update Item</h2>
-      <form>
-        <label htmlFor="Update Item">Update Item:</label>
-        <input type="text" name="name" />
-        <input type="text" name="type" />
-        <input type="number" name="qty" />
-        <input type="text" name="description" />
-        <button>Update</button>
-        <button onClick={()=> setEditing(false)}>Cancel</button>
-      </form>
-    </>
+        <h2>Update Item</h2>
+        <form onSubmit={onSubmit}>
+          <label htmlFor="Update Item">Update Item:</label>
+          <input type="text" name="name" value={item.name} onChange={onChange} />
+          <input type="text" name="type" value={item.type} onChange={onChange} />
+          <input type="number" name="qty" value={item.qty} onChange={onChange} />
+          <input
+            type="text"
+            name="description"
+            value={item.description}
+            onChange={onChange}
+          />
+          <button>Update</button>
+          <button onClick={() => setEditing(false)}>Cancel</button>
+        </form>
+      </>
     )
 }
 export default UpdateItem

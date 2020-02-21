@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import ItemList from "../components/itemlist"
 import AddItemForm from "../components/additemform"
 import UpdateItem from "../components/updateitem"
+import firebase from '../components/firebase'
 const IndexPage = () => {
   
    /*
@@ -31,6 +32,19 @@ Apply the empty initialItemState from above to a
 currentItem state. currentItem will be used for
 editing individual items. 
 */
+const updateItem = ({ currentItem }, updatedItem) => {
+  console.log(
+    "It send the item to the updated item function:",
+    updatedItem,
+    currentItem.id
+  );
+  setEditing(false);
+  firebase
+    .firestore()
+    .collection("items")
+    .doc(currentItem.id)
+    .update(updatedItem);
+};
 const [currentItem, setCurrentItem] = useState(initialItemState)
   return (
     <div>
@@ -38,7 +52,7 @@ const [currentItem, setCurrentItem] = useState(initialItemState)
       <h2>Item List</h2>
       <ItemList editItem={editItem}/>
       <h2>Add Item</h2>
-      {editing ? <UpdateItem setEditing={setEditing} currentItem={currentItem}/> : <AddItemForm />}
+      {editing ? <UpdateItem setEditing={setEditing} currentItem={currentItem} updateItem={updateItem}/> : <AddItemForm />}
     </div>
   )
 }
